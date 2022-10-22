@@ -8,7 +8,6 @@
 .item {
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
 .item:not(:last-child) {
@@ -16,11 +15,13 @@
 }
 
 .btn {
-  padding: 0;
+  width: 30px;
+  height: auto;
   cursor: pointer;
-  background-color: transparent;
-  border: none;
-  outline: none;
+  display: inline-block;
+  background-color: brown;
+  background-repeat: no-repeat;
+  background-size: contain;
   transition: transform 250ms var(--timingFn);
 }
 

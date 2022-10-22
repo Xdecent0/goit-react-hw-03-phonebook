@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { ReactComponent as DeleteIcon } from '../../img/delete.svg';
 import s from './ContactList.module.css';
 
 function ContactList({ contacts, onDeleteContact }) {
@@ -14,9 +13,7 @@ function ContactList({ contacts, onDeleteContact }) {
             className={s.btn}
             type="button"
             onClick={() => onDeleteContact(id)}
-          >
-            <DeleteIcon width="26" height="26" />
-          </button>
+          ></button>
         </li>
       ))}
     </ul>
@@ -29,7 +26,7 @@ ContactList.propTypes = {
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       number: PropTypes.string.isRequired,
-    }),
+    })
   ),
   onDeleteContact: PropTypes.func.isRequired,
 };
