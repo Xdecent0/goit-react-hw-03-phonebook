@@ -1,29 +1,40 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 import s from './ContactForm.module.css';
 
+const INITIAL_STATE = { name: '', tel: '' };
+
 class ContactForm extends Component {
-  state = {
-    name: '',
-    number: '',
-  };
+  state = INITIAL_STATE;
 
   handleChange = e => {
-    const { name, value } = e.currentTarget;
-
+    const { name, value } = e.target;
     this.setState({ [name]: value });
   };
 
   handleSubmit = e => {
     e.preventDefault();
+    const { onAdd, onCheckforUniqName } = this.props;
+    const { name, tel } = this.state;
 
-    this.props.onSubmit(this.state);
+    const checkUniqName = onCheckforUniqName(name);
+    if (!checkUniqName) return;
 
-    this.setState({ name: '', number: '' });
+    if (!(name && tel)) {
+      alert('Empty field');
+      return;
+    }
+
+    onAdd({ id: uuidv4(), name, tel });
+    this.reset();
+  };
+
+  reset = () => {
+    this.setState(INITIAL_STATE);
   };
 
   render() {
-    const { name, number } = this.state;
     return (
       <form className={s.form} onSubmit={this.handleSubmit}>
         <label className={s.label}>
@@ -32,9 +43,8 @@ class ContactForm extends Component {
             className={s.input}
             type="text"
             name="name"
-            value={name}
+            value={this.state.name}
             onChange={this.handleChange}
-            placeholder="Ivan Ivanov"
           />
         </label>
         <label className={s.label}>
@@ -42,13 +52,12 @@ class ContactForm extends Component {
           <input
             className={s.input}
             type="tel"
-            name="number"
-            value={number}
+            name="tel"
+            value={this.state.tel}
             onChange={this.handleChange}
-            placeholder="111-11-11"
           />
         </label>
-        <button className={s.btn} type="submit">
+        <button className={s.btnAddContact} type="submit">
           Add contact
         </button>
       </form>
@@ -57,7 +66,8 @@ class ContactForm extends Component {
 }
 
 ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  onAdd: PropTypes.func,
+  onCheckforUniqName: PropTypes.func,
 };
 
 export default ContactForm;
