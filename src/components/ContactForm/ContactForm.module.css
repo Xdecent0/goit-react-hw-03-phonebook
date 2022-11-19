@@ -1,16 +1,3 @@
-.form {
-  display: flex;
-  flex-direction: column;
-}
-.label {
-  margin-bottom: 10px;
-}
-.input {
-  display: block;
-  outline: none;
-  border: 1px solid lightslategrey;
-  border-radius: 2px;
-}
-.btnAddContact {
-  width: 100px;
+.addButton {
+  margin-top: 25px;
 }
