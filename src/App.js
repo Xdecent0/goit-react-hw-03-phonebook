@@ -7,6 +7,19 @@ import Contacts from './components/Contacts';
 class App extends Component {
   state = {
     contacts: [],
+    filter: '',
+  };
+
+  handleFilter = filter => {
+    this.setState({ filter });
+  };
+
+  getFilteredContacts = () => {
+    const { contacts } = this.props;
+    const { filter } = this.state;
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
   };
 
   handleAddContact = newContact => {
@@ -48,18 +61,15 @@ class App extends Component {
   }
 
   render() {
-    const { contacts } = this.state;
+    const { filter } = this.state;
+    const { onDeleteContact } = this.props;
+    const filteredContacts = this.getFilteredContacts();
     return (
       <Container>
         <Phonebook title="Phonebook">
           <ContactForm
             onAdd={this.handleAddContact}
             onCheckforUniqName={this.handlerUniqName}
-          />
-          <Contacts
-            title="Contacts"
-            contacts={contacts}
-            onDeleteContact={this.handleDeleteContact}
           />
         </Phonebook>
       </Container>

@@ -16,7 +16,7 @@ export class Contacts extends Component {
     const { contacts } = this.props;
     const { filter } = this.state;
     return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase()),
+      contact.name.toLowerCase().includes(filter.toLowerCase())
     );
   };
 
