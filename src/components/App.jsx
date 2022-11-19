@@ -41,6 +41,16 @@ export class App extends React.Component {
       alert(`${name} is already in your contact list`);
       return;
     }
+    if
+    (
+      this.state.contacts.find(
+        contact => contact.number === number
+      )
+    ) {
+      alert(`${name} is already in your contact list`);
+      return;
+    }
+    
 
     this.setState(prevState => ({
       contacts: [contact, ...prevState.contacts],
